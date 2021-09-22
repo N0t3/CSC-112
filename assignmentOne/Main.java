@@ -16,10 +16,9 @@ public class Main {
         String[] students = new String[numOfLines];
         int[] arrayAvgGrades = new int[numOfLines]; 
 
-        System.out.println("done");
+
         while(inputFile.hasNextLine()){
             readStudents(inputFile, students, arrayAvgGrades);
-            
         }
 
     }
@@ -27,8 +26,8 @@ public class Main {
         for(int i = 0; i < students.length; i++){
             if(inputFile.hasNextInt()){
                 arrayAvgGrades[i] = inputFile.nextInt();
-                System.out.println(arrayAvgGrades[i]);
             }
+            students[i] = inputFile.nextLine();
         }
     }
 }
