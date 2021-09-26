@@ -2,6 +2,7 @@ import java.util.Scanner;
 import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.*;  
+import java.util.Arrays;
 
 public class Main {
     public static void main(String [] args) throws IOException {
@@ -11,46 +12,39 @@ public class Main {
         FileInputStream fileByteStreamTwo = new FileInputStream("input.txt");
         Scanner inputFileTwo = new Scanner(fileByteStreamTwo);
 
-        BufferedReader lineReader = new BufferedReader(new FileReader("input.txt"));
-        int numOfLines = 0;
-        int count = 0;
-
-        while (lineReader.readLine() != null){
-            numOfLines++;
-        } 
-        lineReader.close();
+        int countStudents = 0;
+        int countInt = 0;
 
         while(inputFile.hasNextLine()){
-            inputFile.nextLine();
             if(inputFile.hasNextInt()){        
-                count++;
+                countInt++;
+            }else{
+                countStudents++;
             }
-            
+            inputFile.nextLine();
         } 
-        System.out.println(numOfLines);
-        System.out.println(count);
        
-        String[][] students = new String[numOfLines/count][count/6];
-
-        // for(int i = 0; i < students.length; i++){
-        //     for(int z = 0; z < students[i].length; z++){
-        //         //System.out.println(students[i][z]);
-        //     }
-        // }
-
+        String[][] students = new String[countStudents +1][9];
         
         while(inputFileTwo.hasNextLine()){
             readStudents(inputFileTwo, students);
-            inputFileTwo.nextLine();
         }
+
+        for(int i = 0; i < students.length; i++){
+            for(int z = 0; z < students[i].length; z++){
+                System.out.println(students[0][z]);
+            }
+        }
+        System.out.println(Arrays.deepToString(students));
     }
     
-    public static void readStudents(Scanner inputFile, String[][] students){
+    public static void readStudents(Scanner x, String[][] students){
         for(int i = 0; i < students.length -1; i++){
-            for(int z = 0; z < students[i].length -1; z++){
-                students[i][z] = inputFile.nextLine();
-                System.out.println(students[i][z]);
-                System.out.println("done");
+            for(int z = 0; z < students[i].length; z++){
+                if(x.hasNextLine()){
+                    students[i][z] = x.next();
+                    //System.out.println(students[i][z]);
+                }
             }
         }
     }
