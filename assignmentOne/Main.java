@@ -8,6 +8,9 @@ public class Main {
         FileInputStream fileByteStream = new FileInputStream("input.txt");
         Scanner inputFile = new Scanner(fileByteStream);
 
+        FileInputStream fileByteStreamTwo = new FileInputStream("input.txt");
+        Scanner inputFileTwo = new Scanner(fileByteStreamTwo);
+
         BufferedReader lineReader = new BufferedReader(new FileReader("input.txt"));
         int numOfLines = 0;
         int count = 0;
@@ -17,27 +20,29 @@ public class Main {
         } 
         lineReader.close();
 
-        while(inputFile.hasNextLine() != false){
+        while(inputFile.hasNextLine()){
+            inputFile.nextLine();
             if(inputFile.hasNextInt()){        
                 count++;
-                System.out.println(count);
             }
+            
         } 
-
         System.out.println(numOfLines);
         System.out.println(count);
        
         String[][] students = new String[numOfLines/count][count/6];
 
-        for(int i = 0; i < students.length; i++){
-            for(int z = 0; z < students[i].length; z++){
-                System.out.println(students[i][z]);
-            }
-        }
-
-        // while(inputFile.hasNextLine()){
-        //     readStudents(inputFile, students);
+        // for(int i = 0; i < students.length; i++){
+        //     for(int z = 0; z < students[i].length; z++){
+        //         //System.out.println(students[i][z]);
+        //     }
         // }
+
+        
+        while(inputFileTwo.hasNextLine()){
+            readStudents(inputFileTwo, students);
+            inputFileTwo.nextLine();
+        }
     }
     
     public static void readStudents(Scanner inputFile, String[][] students){
