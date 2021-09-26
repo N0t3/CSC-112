@@ -13,29 +13,33 @@ public class Main {
         int count = 0;
 
         while (lineReader.readLine() != null){
-            if(inputFile.hasNextInt()){
-                count++;
-            }
             numOfLines++;
         } 
         lineReader.close();
+
+        while(inputFile.hasNextLine() != false){
+            if(inputFile.hasNextInt()){        
+                count++;
+                System.out.println(count);
+            }
+        } 
+
         System.out.println(numOfLines);
         System.out.println(count);
+       
+        String[][] students = new String[numOfLines/count][count/6];
 
-        // String[][] students = new String[numOfLines/count][count/6];
-
-        // System.out.println(numOfLines);
-
-        // for(int i = 0; i < students.length; i++){
-        //     for(int z = 0; z < students[i].length; z++){
-        //         System.out.println(students[i][z]);
-        //     }
-        // }
+        for(int i = 0; i < students.length; i++){
+            for(int z = 0; z < students[i].length; z++){
+                System.out.println(students[i][z]);
+            }
+        }
 
         // while(inputFile.hasNextLine()){
         //     readStudents(inputFile, students);
         // }
     }
+    
     public static void readStudents(Scanner inputFile, String[][] students){
         for(int i = 0; i < students.length -1; i++){
             for(int z = 0; z < students[i].length -1; z++){
