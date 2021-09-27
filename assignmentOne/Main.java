@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.*;  
 import java.util.Arrays;
+import java.util.*;
 
 public class Main {
     public static void main(String [] args) throws IOException {
@@ -26,19 +27,17 @@ public class Main {
        
         String[][] students = new String[countStudents +1][9];
         double[] avereageTestGrade = new double[countStudents];
+        String[] alphabetizeStudents = new String[countStudents];
         
         while(inputFileTwo.hasNextLine()){
             readStudents(inputFileTwo, students);
         }
 
-        for(int i = 0; i < students.length; i++){
-            for(int z = 0; z < students[i].length; z++){
-                System.out.println(students[0][z]);
-            }
-        }
-        System.out.println(Arrays.deepToString(students));
+        //System.out.println(Arrays.deepToString(students));
 
         averageTestGrade(students,avereageTestGrade);
+        alphabetizeStudents(students, alphabetizeStudents);
+    
     }
     
     public static void readStudents(Scanner x, String[][] students){
@@ -51,16 +50,58 @@ public class Main {
         }
     }
 
-    public static void averageTestGrade(String[][] x, double[] array){
-        for(int i = 0; i < x.length -1; i++){
+    public static void averageTestGrade(String[][] students, double[] array){
+        for(int i = 0; i < students.length -1; i++){
             double cal = 0;
-            for(int z = 0; z < x[i].length -4; z++){
-                cal += Integer.parseInt(x[i][z + 4]);
+            for(int z = 0; z < students[i].length -4; z++){
+                cal += Integer.parseInt(students[i][z + 4]);
             }
-            array[i] = cal/5; 
-            System.out.println(array[i]);
+            array[i] = cal/5;
         }
     }
-    
+
+    public static void alphabetizeStudents(String[][] students, String[] array){
+        int length = 0;
+        String temp; 
+        String tempTwo;
+        for(int i = 0; i < students.length -1; i++){
+            for(int j = 0; j < students.length -1; j++){
+                temp = students[i][0];
+                students[i][0] = students[i][2];
+                students[i][2] = temp;
+            }
+            for(int z = 0; z < students.length -1; z++){
+                temp = students[z][2];
+                students[z][2] = students[z][1];
+                students[z][1] = temp;
+            }
+        }
+
+        for(int i = 0; i < students.length -1; i++){
+            array[i] = students[i][2];
+            length++;
+        }
+        Arrays.sort(array, 0, length);
+
+        System.out.println(Arrays.deepToString(students));
+        
+
+        //System.out.println(Arrays.deepToString(array));
+    }
+
+    // public static void printStudents(String[][] students, String[] array){
+    //     int count = 0; 
+        
+    //     while(count < array.length){
+    //         for(int i = 0; i < students.length -1; i++){
+    //             for(int z = 0; z < students[i].length; z++){
+    //                 if(array[i].equals(students[i][0])){
+    //                     System.out.println(array[i])
+    //                     count++;
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 }
 
