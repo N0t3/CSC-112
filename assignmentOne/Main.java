@@ -65,25 +65,26 @@ public class Main {
         String temp; 
         String tempTwo;
         for(int i = 0; i < students.length -1; i++){
-            for(int j = 0; j < students.length -1; j++){
-                temp = students[i][0];
-                students[i][0] = students[i][2];
-                students[i][2] = temp;
-            }
-            for(int z = 0; z < students.length -1; z++){
-                temp = students[z][2];
-                students[z][2] = students[z][1];
-                students[z][1] = temp;
-            }
+            //switched first and last name
+            temp = students[i][0];
+            students[i][0] = students[i][2];
+            students[i][2] = temp;
+            
+            //switches middle and first name
+            temp = students[i][2];
+            students[i][2] = students[i][1];
+            students[i][1] = temp;
+            
         }
-
+        
         for(int i = 0; i < students.length -1; i++){
             array[i] = students[i][2];
             length++;
         }
         Arrays.sort(array, 0, length);
-
         System.out.println(Arrays.deepToString(students));
+
+        
         
 
         //System.out.println(Arrays.deepToString(array));
