@@ -3,10 +3,13 @@ import java.io.IOException;
 import java.io.FileInputStream;
 import java.io.*;  
 import java.util.Arrays;
-import java.util.*;
+import java.util.Random;
 
 public class Main {
     public static void main(String [] args) throws IOException {
+        PrintStream outputFile = new PrintStream(new File("output.txt"));
+        //PrintStream console = System.out;
+
         FileInputStream fileByteStream = new FileInputStream("input.txt");
         Scanner inputFile = new Scanner(fileByteStream);
 
@@ -33,10 +36,10 @@ public class Main {
             readStudents(inputFileTwo, students);
         }
 
-        //System.out.println(Arrays.deepToString(students));
 
         averageTestGrade(students,avereageTestGrade);
         alphabetizeStudents(students, alphabetizeStudents);
+        printStudents(students, alphabetizeStudents, avereageTestGrade, countStudents, outputFile);
     
     }
     
@@ -51,6 +54,7 @@ public class Main {
     }
 
     public static void averageTestGrade(String[][] students, double[] array){
+        //transfer the average test scores into its own array 
         for(int i = 0; i < students.length -1; i++){
             double cal = 0;
             for(int z = 0; z < students[i].length -4; z++){
@@ -58,14 +62,14 @@ public class Main {
             }
             array[i] = cal/5;
         }
+            
     }
 
     public static void alphabetizeStudents(String[][] students, String[] array){
         int length = 0;
         String temp; 
-        String tempTwo;
         for(int i = 0; i < students.length -1; i++){
-            //switched first and last name
+            //switches first and last name
             temp = students[i][0];
             students[i][0] = students[i][2];
             students[i][2] = temp;
@@ -74,35 +78,195 @@ public class Main {
             temp = students[i][2];
             students[i][2] = students[i][1];
             students[i][1] = temp;
-            
         }
         
         for(int i = 0; i < students.length -1; i++){
-            array[i] = students[i][2];
+            array[i] = students[i][0];
             length++;
         }
+
+        //sorts the array to find order of names
         Arrays.sort(array, 0, length);
-        System.out.println(Arrays.deepToString(students));
-
-        
-        
-
-        //System.out.println(Arrays.deepToString(array));
     }
 
-    // public static void printStudents(String[][] students, String[] array){
-    //     int count = 0; 
+    public static void printStudents(String[][] students, String[] array, double[] numArray, int numStudents, PrintStream outputFile){
+        int count = 0; 
+        //System.out.println(Arrays.deepToString(students));
         
-    //     while(count < array.length){
-    //         for(int i = 0; i < students.length -1; i++){
-    //             for(int z = 0; z < students[i].length; z++){
-    //                 if(array[i].equals(students[i][0])){
-    //                     System.out.println(array[i])
-    //                     count++;
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+        while(count < numStudents -1){
+            //runs through the rows
+            for(int i = 0; i < numStudents; i++){
+                //checks last name follows order
+                if(array[count].equals(students[i][0])){
+                    //prints all componets of the student
+                    for(int z = 0; z < students[i].length -5; z++){
+                        System.setOut(outputFile);
+                        System.out.print(students[i][z] + " ");
+                    }
+                    System.setOut(outputFile);
+                    System.out.print(numArray[i]);
+                    count++;
+
+                    System.setOut(outputFile);
+                    System.out.println("");
+                }    
+            }
+        }
+
+        //prints the final student
+        for(int i = 0; i < students.length -1; i++){
+            if(array[count].equals(students[i][0])){
+                for(int z = 0; z < students[i].length -5; z++){
+                    System.setOut(outputFile);
+                    System.out.print(students[i][z] + " ");
+                }
+                System.setOut(outputFile);
+                System.out.print(numArray[i]);
+            }  
+        }
+
+        //prints the groups
+        System.setOut(outputFile);
+        System.out.println("\n");
+        System.out.println("\n");
+        System.out.print("Groups: ");
+        System.out.println("\n");
+
+        int groupCount = 0;
+        int lastGroupCount = 0;
+        int currentStudent = 0;
+        int currentNumGroups = 0;
+        int numMembersInGroup = 0;
+
+        if(numStudents % 4 == 1){
+            groupCount = numStudents/4 + 1 ;
+            lastGroupCount = 5;
+        }else if (numStudents % 4 == 0){
+             groupCount = numStudents/4;
+        }else if(numStudents % 4 != 0){
+            groupCount = numStudents/4;
+            lastGroupCount = numStudents % 4;
+        }
+
+        if(numStudents % 4 == 0){
+            double avgGrade = 0;
+
+            //places students into group
+            for(int i = 0; i < groupCount; i++){
+                avgGrade = 0; 
+                numMembersInGroup = 0;
+                //runs through rows
+                for(int row = 0; row < 4; row++){
+                    //runs through col
+                    for(int col = 0; col < students[row].length -8; col++){
+                        System.setOut(outputFile);
+                        System.out.println(students[currentStudent][col]);
+                        avgGrade += numArray[currentStudent];
+                    }
+                    currentStudent++;
+                    numMembersInGroup++;
+                }
+                Random rand = new Random();
+                int randInt = rand.nextInt(numMembersInGroup) +1;
+    
+                System.setOut(outputFile);
+                System.out.print("Group " + currentNumGroups + " Leader: " + students[currentStudent - randInt][0] + "\n");
+                
+                
+                System.out.println("Group Average Grade: " + avgGrade/numMembersInGroup + "\n");
+            }
+            currentNumGroups++;
+        }
+
+        if(numStudents % 4 != 0 && numStudents % 4 != 1){
+            double avgGrade = 0;
+            //places students into group
+            for(int i = 0; i < groupCount; i++){
+                avgGrade = 0; 
+                numMembersInGroup = 0;
+                //runs through rows
+                for(int row = 0; row < 4; row++){
+                    //runs through col
+                    for(int col = 0; col < students[row].length -8; col++){
+                        System.setOut(outputFile);
+                        System.out.println(students[currentStudent][col]);
+                        avgGrade += numArray[currentStudent];
+                    }
+                    currentStudent++;
+                    numMembersInGroup++;
+                }
+                currentNumGroups++;
+                
+                Random rand = new Random();
+                int randInt = rand.nextInt(numMembersInGroup +1);
+    
+                System.setOut(outputFile);
+                System.out.print("Group " + currentNumGroups + " Leader: " + students[currentStudent - randInt][0] + "\n");
+                
+                
+                System.out.println("Group Average Grade: " + avgGrade/numMembersInGroup + "\n");
+            }
+            numMembersInGroup = 0; 
+            avgGrade = 0;
+            if(currentStudent != numStudents){
+                for(int row = 0; row < numStudents - currentStudent; row++){
+                    //runs through col
+                    for(int col = 0; col < students[row].length -8; col++){
+                        System.setOut(outputFile);
+                        System.out.println(students[currentStudent][col]);
+                        avgGrade += numArray[currentStudent];
+                    }
+                    currentStudent++;
+                    numMembersInGroup++;
+                }
+                currentNumGroups++;
+                
+                Random rand = new Random();
+                int randInt = rand.nextInt(numMembersInGroup) +1;
+    
+                System.setOut(outputFile);
+                System.out.print("Group " + currentNumGroups + " Leader: " + students[currentStudent - randInt][0] + "\n"); 
+                System.out.println("Group Average Grade: " + avgGrade/numMembersInGroup + "\n");
+            }
+        }
+
+        if(numStudents % 4 == 1){
+            double avgGrade = 0;
+
+            //places students into group
+            for(int i = 0; i < groupCount -1; i++){
+                avgGrade = 0; 
+                numMembersInGroup = 0;
+                //runs through rows
+                for(int row = 0; row < 4; row++){
+                    //runs through col
+                    for(int col = 0; col < students[row].length -8; col++){
+                        System.setOut(outputFile);
+                        System.out.println(students[currentStudent][col]);
+                        avgGrade += numArray[currentStudent];
+                    }
+
+                    if(numStudents - currentStudent == 5){
+                        currentStudent++;
+                        for(int z = 0; z < students[row].length -8; z++){
+                            System.setOut(outputFile);
+                            System.out.println(students[currentStudent][z]);
+                            avgGrade += numArray[currentStudent];
+                        }
+                        numMembersInGroup++;
+                    }
+                    currentStudent++;
+                    numMembersInGroup++;
+                }
+                currentNumGroups++;
+                Random rand = new Random();
+                int randInt = rand.nextInt(numMembersInGroup) +1;
+    
+                System.setOut(outputFile);
+                System.out.print("Group " + currentNumGroups + " Leader: " + students[currentStudent - randInt][0] + "\n");
+                System.out.println("Group Average Grade: " + avgGrade/numMembersInGroup + "\n");
+            }
+        }
+    }
 }
 

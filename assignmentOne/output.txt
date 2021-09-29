@@ -1,0 +1,44 @@
+Clinton William Jefferson 19283746 78.6
+Curtis Jamie Lee 44335588 80.0
+Dasdsd Henry Wadsworth 98765432 88.8
+Dlalsds Henry Wadsworth 98765432 88.8
+Harris Neil Patrick 55743920 79.0
+Hewitt Jennifer Love 11002299 80.6
+Kim Daniel Dai 83640926 79.8
+Koch Henry Wadsworth 98765432 88.8
+Ldsd Molly Clair 15680000 85.4
+Longfellow Henry Wadsworth 98765432 88.8
+Marquez Gabriel Garcia 49020021 94.2
+Stevenson Robert Lewis 111338745 86.2
+Williams Billy Dee 36784950 85.4
+Yeats William Butler 74809223 78.0
+
+
+
+Groups: 
+
+Stevenson
+Longfellow
+Clinton
+Hewitt
+Group 1 Leader: Clinton
+Group Average Grade: 83.55
+
+Curtis
+Kim
+Harris
+Marquez
+Group 2 Leader: Harris
+Group Average Grade: 83.25
+
+Yeats
+Williams
+Ldsd
+Dlalsds
+Group 3 Leader: Williams
+Group Average Grade: 84.4
+
+Dasdsd
+Group 4 Leader: Dasdsd
+Group Average Grade: 88.8
+
